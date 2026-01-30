@@ -1,7 +1,7 @@
 <!-- page1.php -->
-<?php
+<!-- <?php
 session_start(); // Start the session
-?>
+?> -->
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +11,15 @@ session_start(); // Start the session
 
 <body>
 
+<?php
+session_start(); // Resume the session
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Store the user input in the session
+    $_SESSION['number'] = $_POST['number'];
+}
+
+$numbers = array(10, 20, 30);
+?>
 
     <h1>Modify array saved in session</h1>
     <form action="Excercise01Ss.php" method="post">
@@ -20,7 +29,6 @@ session_start(); // Start the session
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
-        <br>
         <br>
         <br>
 

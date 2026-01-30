@@ -3,7 +3,7 @@
 session_start(); // Resume the session
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Store the user input in the session
-    $_SESSION['name'] = $_POST['name'];
+    $_SESSION['number'] = $_POST['name'];
 }
 ?>
 <!DOCTYPE html>
