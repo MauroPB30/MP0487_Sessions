@@ -1,7 +1,3 @@
-<!-- page1.php -->
-<!-- <?php
-session_start(); // Start the session
-?> -->
 <!DOCTYPE html>
 <html>
 
@@ -13,12 +9,17 @@ session_start(); // Start the session
 
 <?php
 session_start(); // Resume the session
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Store the user input in the session
-    $_SESSION['number'] = $_POST['number'];
+if(!isset($_SESSION['numbers'])){
+    $_SESSION['numbers']=[10,20,30];
 }
 
-$numbers = array(10, 20, 30);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Store the user input in the session
+    $_SESSION['numbers'] = $_POST['numbers'];
+}
+
+if (isset($modify))
+
 ?>
 
     <h1>Modify array saved in session</h1>
