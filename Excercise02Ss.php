@@ -14,7 +14,7 @@ if (!isset($_SESSION['worker'])) {
     $_SESSION['worker'] = "";
 }
 
-if (!isset($_SESSION['worker'])) {
+if (isset($_POST['worker'])) {
     $_SESSION['worker'] = $_POST['worker'];
 }
 
@@ -36,11 +36,15 @@ if (isset($_POST['remove'])) {
     $product = $_POST['product'];
     $quantity = $_POST['quantity'];
 
-    if ($product <= "milk") {
-        $_SESSION['milk'] -= $quantity;
+    if ($product == "milk") {
+        if ($quantity <= $_SESSION['milk']) {
+            $_SESSION['milk'] -= $quantity;
+        }
     }
-    if ($product <= "soft") {
-        $_SESSION['soft'] -= $quantity;
+    if ($product == "soft") {
+        if ($quantity <= $_SESSION['soft']) {
+            $_SESSION['soft'] -= $quantity;
+        }
     }
 }
 
@@ -49,7 +53,7 @@ if (isset($_POST['reset'])) {
     session_destroy();
     session_start();
     $_SESSION['milk'] = 0;
-    $_SESSION['sotf'] = 0;
+    $_SESSION['soft'] = 0;
     $_SESSION['worker'] = "";
 }
 
@@ -66,33 +70,33 @@ if (isset($_POST['reset'])) {
     <h1>Modify array saved in session</h1>
 
     <form method="post">
-        <!-- Esta parte del body es netamente visual -->
+
         <label>Worker name:</label>
-        <input type="text" name="worker" value="<?php echo $_SESSION['worker']; ?>" required><br><br>
-        <br>
-        <br>
+        <input type="text" name="worker" value="<?php echo $_SESSION['worker']; ?>" required>
+        <br><br>
 
-        <label>Choose product</label>
-        <select name="product" required>
-            <option value="Milk">Milk</option>
-            <option value="Soft">Soft Drink</option>
+        <label>Choose product:</label>
+        <select name="product">
+            <option value="milk">Milk</option>
+            <option value="soft">Soft Drink</option>
         </select>
-        <br>
-        <br>
+        <br><br>
 
-        <label for="name">Product Quantity:</label>
-        <input type="number" name="quantity" min="1" required><br><br>
+        <label>Product quantity:</label>
+        <input type="number" name="quantity" min="1">
+        <br><br>
+
         <button type="submit" name="add">Add</button>
         <button type="submit" name="remove">Remove</button>
-        <button type="submit" name="reset">Reset</button><br><br>
+        <button type="submit" name="reset">Reset</button>
+
     </form>
 
-    <h4>
-        <h3>INVENTORY:</h3>
-
-        <p>Worker: <?php echo $_SESSION['worker']; ?></p>
-        <p>Units milk: <?php echo $_SESSION['milk']; ?></p>
-        <p>Units soft drink: <?php echo $_SESSION['soft']; ?></p>
-
+    <h3>Inventory:</h3>
+    <p>Worker: <?php echo $_SESSION['worker']; ?></p>
+    <p>Units milk: <?php echo $_SESSION['milk']; ?></p>
+    <p>Units soft drink: <?php echo $_SESSION['soft']; ?></p>
 
 </body>
+
+</html>
